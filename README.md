@@ -21,11 +21,11 @@
 
 - 이미 node.js, express를 다룰 줄 아는 사람들
 - 이론이 별로 궁금하지 않고 코드만 알고 싶은 사람들
-- 모든 내용이 전공자 기준으로 세세하게 설명되어있는 자료를 원하는 사람들
+- 모든 내용이 전공자 기준으로 세세하게 설명되어있는 자료를 원하는 사람들
 
 
 
-시작 일시 2020-09-10
+시작 일시 2020-09-10
 
 ### By 경기대 멋쟁이사자처럼 고영빈
 
@@ -91,7 +91,7 @@
 
 ##### 친구들에게 영화 보여주기
 
-![간단요약 서버 클라이언트](C:\Users\alkad\Desktop\ppt_template\node\간단요약 서버 클라이언트.png)
+![간단요약 서버 클라이언트](.\imageForReadme\간단요약 서버 클라이언트.png)
 
 집에 영화가 많은 친구가 있습니다.
 
@@ -111,7 +111,7 @@
 
 그에 따라서 친구들은 해당 IP를 통해 친구네 집에 있는 컴퓨터 속 영화를 볼 수 있게됩니다.
 
-![어려운 서버](C:\Users\alkad\Desktop\ppt_template\node\어려운 서버.png)
+![어려운 서버](.\imageForReadme\\어려운 서버.png)
 
 위 그림처럼 말이죠
 
@@ -207,7 +207,7 @@ API도 마찬가지라고 생각하시면 됩니다. 여러 도안을 받아와�
 
 위에서 이야기 했듯이 서버를 배포하는 일은 영화가 보고싶은 친구들을 영화가 많은 친구네로 이동해서 보는 것과 같습니다.
 
-![간단요약 서버 클라이언트](C:\Users\alkad\Desktop\ppt_template\node\간단요약 서버 클라이언트.png)
+![간단요약 서버 클라이언트](.\imageForReadme\\간단요약 서버 클라이언트.png)
 
 
 
@@ -330,13 +330,13 @@ Node.js 이전에는 JAVA 기반의 웹 개발자들이 많았습니다. 그래�
 
 자 이 과정이 아까 설명한 **쓰레드 기반 동기방식**과 동일합니다. 어떤 부분이 동일한지는 차근차근 설명해 나가면서 알아봅시다.
 
-![subway in server](C:\Users\alkad\Desktop\ppt_template\node\subway in server.png)
+![subway in server](.\imageForReadme\\subway in server.png)
 
 서브웨이에서는 여러 명의 직원이 존재하죠, 각 직원은 보통 한 사람의 주문을 받습니다. 그리고 해당하는 주문이 모두 완료될 때까지 다른 주문을 받지 못합니다.
 
 그렇다면, 직원이 만약에 세 명 있고, 각 직원 당 받을 수 있는 주문의 수는 1회~2회라고 생각해봅시다.
 
-![서브웨이 알바생](C:\Users\alkad\Desktop\ppt_template\node\서브웨이 알바생.png)
+![서브웨이 알바생](.\imageForReadme\\서브웨이 알바생.png)
 
 사람이 적을 때는 문제가 되지 않지만, 점심시간이 되어 많은 사람들이 직장 혹은 학교 등등 각지에서 나와 서브웨이에 사람이 몰린다고 가정해봅시다. 그러면 한 명의 직원이 받을 수 있는 주문의 수는 최대 2개씩이므로 3명의 직원은 6개의 주문을 받을 수 있을 것입니다.
 
@@ -373,7 +373,7 @@ Node.js 이전에는 JAVA 기반의 웹 개발자들이 많았습니다. 그래�
 
 이렇게 줄을 세워놓고 작업을 하나씩 빠르게 작업을 처리해서 결과를 하나씩 빠르게 도출하는 방법이죠.
 
-![맥도날드 빠라빠빠빠](C:\Users\alkad\Desktop\ppt_template\node\맥도날드 빠라빠빠빠.png)
+![맥도날드 빠라빠빠빠](.\imageForReadme\\맥도날드 빠라빠빠빠.png)
 
 **※ 고객의 주문은 순차적으로 적용됩니다**
 
@@ -496,7 +496,7 @@ node를 사용하기 위해서는 node를 깔아야합니다.
 
 https://nodejs.org/ko/
 
-![image-20200912200449517](C:\Users\alkad\AppData\Roaming\Typora\typora-user-images\image-20200912200449517.png)
+![image-20200912200449517](.\imageForReadme\image-20200912200449517.png)
 
 Node.js를 구글에 쳐서 들어오면 해당 화면에 접속 할 수있습니다.
 
@@ -510,7 +510,7 @@ Node.js를 구글에 쳐서 들어오면 해당 화면에 접속 할 수있습�
 $ npm init
 ```
 
-![image-20200912201627431](C:\Users\alkad\AppData\Roaming\Typora\typora-user-images\image-20200912201627431.png)
+![image-20200912201627431](.\imageForReadme\image-20200912201627431.png)
 
 여러분이 npm을 설치하고 원하는 환경에다가 이렇게 npm init을 통해 갖가지 정보를 입력하면 됩니다.
 
@@ -518,7 +518,7 @@ $ npm init
 
 #### package.json
 
-![image-20200912202034977](C:\Users\alkad\AppData\Roaming\Typora\typora-user-images\image-20200912202034977.png)
+![image-20200912202034977](.\imageForReadme\image-20200912202034977.png)
 
 자 package.json을 한번 천천히 뜯어보죠.
 
