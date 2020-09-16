@@ -576,6 +576,363 @@ $ npm run node index.js
    - Express는 node.js에서 가장 많이 쓰이는 프레임워크 중 하나로, 웹, 어플리케이션 개발을 위한 많은 주요 기능을 제공하는 프레임워크 이며, 사람들이 node에서 가장 많이 사용하는 프레임워크 중 하나입니다.
    - Django와 비슷하게 MVC(Model-View-Controller) 디자인 패턴을 가지고 있는 프레임 워크입니다.
    - 사용하기 쉽고, 많은 API를 제공하기 때문에 인기가 많습니다.
+   - Node로 모든 걸 처음부터 작성하게 되면, 해야할 일이 굉장히 많아집니다.
+2. 다른 프레임워크를 쓰지 않는 이유
+   - Socket.io, Meteor.JS, Koa.JS 등등 여러 프레임워크 등이 많이 존재하지만 Express를 제일 많이 사용하고, API가 제일 많습니다.
+   - Express에서 파생되어 나온 프레임워크들이 많으므로 Express를 익히면 익히기 쉬운 프레임워크가 많습니다.
 
-Express 참조 - https://dora-guide.com/nodejs-net-framework/
+참고 - https://dora-guide.com/nodejs-net-framework/
+
+
+
+#### Express 사용법
+
+```bash
+$ npm install express --save
+```
+
+일단 express 프레임워크를 설치해야합니다 Django와 비슷하게 패키지 설치 명령어를 이용해서 (NPM(Node Package Manager)를 이용해서) 프레임워크를 현재 폴더 안에 설치해줍니다.
+
+##### 막간 설명
+
+```bash
+$ npm install express
+$ npm install express --save
+```
+
+위 두가지의 차이점을 알아봅시다.
+
+1. npm install express에 --save를 넣지 않은 경우는 global install로 전역 설치를 뜻합니다.
+   - 전역설치란, 해당 프로젝트 내에 모듈을 설치하지 않는 경우를 의미하며, 이와 같은 경우에는 npm을 처음 설치할때 npm의 위치에 모듈을 설치하는 것입니다.
+   - npm의 위치에 모듈을 설치하게 되면, 모든 프로젝트에서 해당 모듈을 설치하지 않아도 새로운 프로젝트를 만들고 node를 실행시킬때 모두 정상적으로 동작하게 만듭니다.
+   - 즉 이 말은 저희가 프로그램을 설치하게 되면 (ex: msi) 더 이상의 설치가 없이 그 프로그램을 사용할 수 있게됨과 동일하죠.
+   - 한번 설치된 모듈은 다시 설치하지 않아도 사용 가능하다는 의미입니다.
+2. npm install express --save
+   - 이 경우는 지역 설치입니다. 해당 프로젝트 내에 모듈을 설치하는 경우를 의미하며, 이와 같은 경우에는 해당 프로젝트 폴더 내에 node_modules 폴더가 만들어지면서, 해당 폴더 내에 모듈이 깔리는 경우
+   - 따라서 새로운 프로젝트를 만들어서 모듈을 사용하고 싶은 경우 그 프로젝트의 경로에도 모듈을 설치하여 주어야합니다.
+
+
+
+**왜 지역 설치를 쓰는가?**
+
+1. 초창기 npm의 버전에는 global install 밖에 지원하지 않았습니다. 그런데 이러한 경우, 내가 새로운 환경에 즉 서버에 내 프로젝트를 배포하고 싶은데, 어떤 모듈을 사용했는지 알기가 모호했습니다.
+2. global install의 치명적인 단점이 있습니다.
+   - 새로 설치한 모듈과 지금 사용하는 모듈의 충돌
+   - 전역 설치로 인한 모듈 관리 어려움
+     - 어떤 모듈을 설치했는지 알기 모호함
+   - 이외에도 여러가지 이유가 있어 지역 설치를 사용하는 것입니다.
+
+
+
+![image-20200916142542233](README.assets/image-20200916142542233.png)
+
+```bash
+$ npm install express --save
+```
+
+명령어 실행 이후에 node_modules가 생깁니다.
+
+**여기서 index.js는 명령어를 통해 생성되는 것이 아닙니다. 작성자 본인이 임의로 만들어야하는 파일입니다.**
+
+
+
+그 다음에 index.js 파일을 만들어보도록 하죠.
+
+```javascript
+// index.js
+
+const express = require('express');
+const app = express();
+const port = 5000;
+
+
+app.get('/', (req, res) => {
+    res.send("Hello World!");
+})
+app.listen(port, ()=> {
+    console.log(`Server listen on ${port}`);
+})
+```
+
+**※ 이 무슨 외계어인가... - javascript를 처음본 사람**
+
+너무 혼란스러워 하지 마시고 처음부터 천천히 한번 살펴봅시다.
+
+
+
+##### 언어 해석
+
+```js
+const express = require('express');
+// const는 변하지 않는 상수라고 생각하시면 됩니다.
+// 변하지 않는 상수라는 건, 한번 값을 지정하면 어떤 일이 있어도 변경할 수 없음을 의미합니다.
+// 즉 const express라는건 express라는 이름의 상수를 지정한 것이고,
+
+// const express = require('express');
+// 위 문장의 의미는 express라는 상수는 'express'라는 모듈을 요구하는 상수이다.
+// 즉 'express'라는 모듈을 express라는 이름으로 사용한다는 의미죠.
+```
+
+이해하기 어려우신가요?
+
+자동차 조립공정에 대한 예시를 한번 들어보겠습니다.
+
+![한국의 자동차 산업을 이끄는 부품업체들 - 오토모티브리포트](README.assets/496_761_1630.jpg)
+
+**※ 수많은 자동차 부품**
+
+자동차를 만들기 위해서는 수 많은 부품을 공정해야합니다. 만약에 여러분이 프레임워크를 사용하지 않고 코딩을 한다고 하시면 이런 과정을 겪게 되는거죠.
+
+그렇다면 그 과정을 대폭 줄이기 위해 각 공장 마다 제작할 수 있는 부품을 정해두고 모든 부품을 따로 제작해서 한 곳에 모아둔다고 해봅시다.
+
+이 부품들은 따로 떨어져 있을 때는 무쓸모하죠. 조립을 통해 합쳐야지만 자동차라는 완제품이 되는 겁니다. 이 중에서 필요 없거나, 옵션으로만 들어가는 부품은 기본 자동차를 만들때는 사용하지 않겠죠?
+
+그렇다면 조립 공정을 거쳐야합니다. 자동차를 조립을 하는 사람이 따로 있겠죠? 그리고 그렇게 조립을 하면 자동차가 완성이 됩니다.
+
+
+
+![자동차 공정](README.assets/자동차 공정.png)
+
+**※ 자동차 공정 과정과 동일하다고 볼 수 있음**
+
+약간의 차이는 존재하지만 비슷하다고 볼 수 있습니다. 먼저 자동차 부품 제조를 미리 받아왔다는 가정하와 만들어진 express를 가져온 것과 동일하게 볼 수 있고, 두번째 과정인 express를 선언하는 건, 이제 이 express로 서비스를 만들겠다는 의미입니다.
+
+즉 자동차 조립 공정의 일부분이라고 볼 수 있겠네요.
+
+그리고 마지막으로 자동차를 제작해서 새로운 자동차가 완성 됐습니다, 그리고 웹 서비스 또한 완성이 되겠죠.
+
+그 중간에 많은 사잇과정들이 있지만, 조금 생략을 붙혀서 설명 했습니다.
+
+
+
+그렇다면 앞으로 모든 모듈을 사용할때
+
+```js
+const mongoose = require('mongoose')
+```
+
+이런 식으로 만들어진 모듈을 불러와서 사용한다는 의미겠죠.
+
+여러분이 django를 배웠다면 가장 기본적으로 알 수 있는
+
+```python
+from os import path
+```
+
+from, import의 원리라고도 볼 수 있습니다.
+
+설명이 길었네요, 다시 원래 코드를 보도록 합시다.
+
+```js
+// index.js
+
+const express = require('express');
+const app = express();
+const port = 5000;
+
+
+app.get('/', (req, res) => {
+    res.send("Hello World!");
+})
+app.listen(port, ()=> {
+    console.log(`Server listen on ${port}`);
+})
+```
+
+이번엔 const app을 봅시다.
+
+```js
+const app = express();
+```
+
+app이라는 상수에 express 함수를 값으로 넣어서 사용한다는 의미입니다.
+
+```js
+app.get('/', (req, res)=> {
+    res.send("Hello World!");
+})
+```
+
+이번엔 좀 어렵습니다 여기부터 js 문법이 들어가거든요. (ES6)
+
+먼저 app.get은 express 내에 get이라는 함수를 사용한다는 의미입니다.
+
+get은 여러분이 django를 하면서 익숙하게 보았던 장면입니다.
+
+일반적인 접근 및 보안성을 제공해주지 않는 데이터 통신 방식인 GET 방식과 동일합니다.
+
+그리고 '/' 이 의미는 여러분이 Django내에 urls.py 에 보시면
+
+```python
+# urls.py
+from django.urls import path
+from . import views
+urlpatterns = [
+    path('', views.home, name="home"),
+]
+```
+
+이러한 구조를 보시면 path에 있는 경로와 동일하다고 보시면 됩니다.
+
+즉, 빈 경로일때 get을 통해 접근할 때, 함수 내에 있는 실행문을 실행시켜준다는 의미입니다.
+
+그렇다면 그 다음 문장을 보시죠.
+
+```js
+app.get('/', (req, res)=> {
+    res.send("Hello World!");
+})
+
+//Allow Function
+() => { }
+
+```
+
+자 이제부터 머리가 띵해지기 시작합니다. 여러분은 JS를 배우지 않았기 때문에 ES6, ES7, ES8에 대한 문법을 잘 모르실 겁니다.
+
+**위키백과 ECMA Script**
+
+ES는 ECMA Script라고 해서 ECMA-262 기술 규격에 따라 정의하고 있는 표준화된 스크립트 프로그래밍 언어를 말합니다. 자바스크립트를 표준화하기 위해 만들어졌습니다. 액션 스크립트와 J스크립트 등 다른 구현체도 포함하고 있다.
+
+참조 - https://ko.wikipedia.org/wiki/ECMA%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8
+
+설명이 좀 어렵게 느껴시질텐데, JS를 사용할때 모든 사람들이 규격화되고 표준화된 양식으로 사용할 수 있도록 만들어진거라고 보시면 됩니다. JS를 모두가 다르게 사용하면 이미 언어로서의 기능을 제대로 하지 못한거니까요.
+
+그런 규격들도 시간이 점차 지남에 따라 버전이 나눠지게 됩니다.
+
+그 중 하나가 ES6 이구요, ES6의 가장 중요한 전환점은 바로 **Arrow Function**입니다.
+
+```js
+//Arrow function
+let new = () => { }
+let new2 = function() {}
+// 위 두 문장은 같다
+const even = [1, 2, 3, 4, 5];
+const odd = even.map(function(n){return n+1})
+const odd2 = even.map(n => n+1)
+const num = even.map(function(n, i){return n+i})
+const num2 = even.map((n, i)=>n+i)
+
+console.log(even)	// [1, 2, 3, 4, 5]
+console.log(odd)	// [2, 3, 4, 5, 6]
+console.log(odd2)	// [2, 3, 4, 5, 6]
+console.log(num)	// [1, 3, 5, 7, 9]
+console.log(num2)	// [1, 3, 5, 7, 9]
+
+//이게 왜 됨?
+```
+
+function으로 사용할 수 있는 기능을 단순한 화살표 함수를 이용해서 사용할 수 있게 만드는 겁니다.
+
+더 깊게 설명하는건 이따가 JS를 중점적으로 배울때 한번 배워보도록 하죠.
+
+```js
+app.get('/', (req, res)=> {
+    res.send("Hello World!");
+})
+```
+
+그렇다면 여기서 (req, res) => { res.send("Hello World!") ;}는 함수 임을 알 수 있겠군요.
+
+req와 res 인자를 두 개 받는데 여기에 res라는 인자에 send라는 함수를 사용해서 "Hello World" 문자열을 전송해준다고 생각해주시면 됩니다.
+
+점점 조금씩, 내용을 이해하는 데 어려워지고 있죠? 괜찮습니다. 처음에는 일단 그대로 적용해보고 추가적으로 설명을 드릴테니까 너무 걱정하지 않으셔도 됩니다.
+
+자 이제 거의 다 왔습니다. 이제 마지막 문장을 보시죠.
+
+```js
+app.listen(port, ()=> {
+    console.log(`Server listen to ${port}`);
+})
+```
+
+새로운 함수인 **listen**이 나왔습니다.
+
+여기서 조금 골치가 아파질 수가 있습니다. 이걸 이해하기 위해서는 저번시간에 배운
+
+**Blocking I/O, Non-Blocking I/O**에 대해서 곱씹어볼 필요가 있습니다.
+
+![I/O 모델 : blocking, non-blocking, 동기, 비동기](README.assets/R800x0)
+
+blocking I/O는 I/O를 입력을 받을때 해당 쓰레드가 끝날때 까지 다른 I/O를 받지 못하는걸 의미합니다.
+
+![I/O 모델 : blocking, non-blocking, 동기, 비동기](README.assets/R720x0.q80)
+
+Nod-blocking I/O는 I/O입력을 받고 실행하는 와중에도 I/O를 받을 수 있고, 해당 사항을 대기열에 넣어서 하나씩 실행하는 방식입니다.
+
+여기서 I/O를 받는다는 걸 listen 즉, 나 지금 들을 준비 됐으니까 언제든지 입력을 달라는 함수를 사용하게 되는데,
+
+```js
+const port = 5000;
+
+app.listen(port, ()=>{console.log(`Server Listen to ${port}`})
+```
+
+node에서는 이 기능을 사용하기 위해 express 모듈 안에 있는 listen함수를 사용하게 됩니다.
+
+포트번호 5000번을 통해서 모든 I/O를 입력 받겠다는 의미죠.
+
+이 포트번호가 열려 있다는 의미이고,  Node.JS는 Non-blocking 방식이기 때문에 해당 포트번호로 계속해서 I/O를 받아서 쓰레드를 실행할 수 있다는 의미입니다.
+
+```js
+const express = require("express");
+const app = express();
+const port = 5000;
+
+app.get('/', (req, res) => {
+    res.send("Hello World!");
+})
+
+app.listen(port, ()=> {
+    console.log(`Server listen on ${port}`);
+})
+```
+
+이렇게 모든 준비가 마무리 됐습니다.
+
+이제 bash창에 node를 실행해주시면 됩니다.
+
+```bash
+$ npm run start
+```
+
+![image-20200916155808545](README.assets/image-20200916155808545.png)
+
+아래와 같은 화면이 나올 겁니다.
+
+그러면 여러분은 주소창에다가 **http://localhost:5000**를 입력하면 아래와 같은 결과를 얻을 수 있습니다.
+
+![image-20200916155931500](README.assets/image-20200916155931500.png)
+
+여러분은 드디어 node를 통해서 backend를 구현했습니다. 지금은 단순하게 Hello World!를 출력하는것에 그쳤지만 이 다음 부터는 데이터의 저장 및 이동에 대해서 배우도록 하겠습니다.
+
+
+
+## JavaScript
+
+### 자바스크립트는 무엇인가?
+
+여러분 이전 강의자료에서 javascript를 이용해서 index.js를 작성해서 서버를 키는 과정까지 해봤습니다.
+
+하지만 자바스크립트를 처음 접하는 여러분들에게는 조금 어려울 수도 있을겁니다.
+
+ES6? Arrow Function? const? let? console?
+
+**※대체 뭐가 뭔지...**
+
+기초부터 한번 시작해보죠, 여러분은 모두 VScode를 사용하고 있으시겠지만, 이번 실습에서는 조금 다른 환경에서 하도록 하겠습니다.
+
+VScode에서 작성해서 확인하는 것보다는 더 빠른 방법으로, 쉽게 javascript를 이해하기 위해서 말이죠.
+
+https://repl.it/repls
+
+![14 Best online IDEs as of 2020 - Slant](README.assets/bd010aad-4caf-4365-90d2-bbd0579f0415)
+
+repli.it을 통해서 스터디하도록 하겠습니다.
+
+codesandbox와 동일한 웹 환경에서 코딩하는 서비스입니다.
+
+![image-20200916160833713](README.assets/image-20200916160833713.png)
+
+이런 형태로 작성되죠. 자 그러면 이제부터 실습을 통해 알아보겠습니다.
 

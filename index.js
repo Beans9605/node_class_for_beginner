@@ -48,7 +48,7 @@ const connect = mongoose.connect(config.mongoURI,
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-app.user(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
