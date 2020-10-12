@@ -56,7 +56,7 @@ userSchema.pre('save', function( next ) {
 userSchema.methods.comparePassword = function(plainPassword, cb) {
     bcrypt.compare(plainPassword, this.password, function(err, isMatch) {
         if(err) return cb(err);
-        cb(null, isMatch)
+        cb(null, isMatch);
     })
 }
 
@@ -70,10 +70,8 @@ userSchema.methods.gernerateToken = function(cb) {
     user.tokenExp = oneHour;
     user.token = token;
     user.save(function (err, user) {
-        user.save(function(err, user){
             if(err) return cb(err)
             cb(null, user);
-        })
     })
 }
 

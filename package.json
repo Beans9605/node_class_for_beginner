@@ -7,7 +7,7 @@
     "start": "node ./server/index.js",
     "backend": "nodemon ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "concurrently \"node ./server/index.js\" \"npm run start --prefix client\""
+    "dev" : "concurrently \"nodemon ./server/index.js\" \"npm run start --prefix client\""
   },
   "author": "고영빈",
   "license": "ISC",

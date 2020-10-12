@@ -52,15 +52,15 @@ function RegisterPage(props) {
 
   return (
     <div style={{display:'flex', justifyContent : "center", alignItems: "center", width : "100%", height: "100vh"}}>
-      <form style={{display:'flex', flexDirection:'colum'}} onSubmit={onSubmitControl}>
+      <form style={{display:'flex', flexDirection:'column'}} onSubmit={onSubmitControl}>
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler} />
         <label>Name</label>
         <input type="text" value={Name} onChange={onNameHandler} />
         <label>Password</label>
-        <input type="password" value={Name} onChange={onPasswordHandler} />
+        <input type="password" value={Password} onChange={onPasswordHandler} />
         <label>Check Password</label>
-        <input type="password" value={Name} onChange={onCheckPasswordHandler} />
+        <input type="password" value={CheckPassword} onChange={onCheckPasswordHandler} />
 
         <br/>
         <button type="submit">Sign up</button>

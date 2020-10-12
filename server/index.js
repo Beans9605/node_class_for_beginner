@@ -54,7 +54,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 
-app.get('/', (req, res) => res.send("Hello Node.JS study!"));
+app.get('/api/hello', (req, res) => res.send("Hello Node.JS study!"));
 
 app.use('/api/users', require('./routes/user'));
 
